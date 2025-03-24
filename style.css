@@ -1,0 +1,108 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+}
+
+h1 {
+  color: white;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Student Page Styling */
+.student-page {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+}
+
+.calculator {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  display: inline-block;
+}
+
+input {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#totalMarks {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Login Page Styling */
+.login-page {
+  text-align: center;
+  padding: 40px;
+}
+
+.login-container {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  display: inline-block;
+}
+
+/* Staff Page Styling */
+.staff-page {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #b8c6db, #f5f7fa);
+}
+
+table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+canvas {
+  max-width: 600px;
+  margin: 20px auto;
+}

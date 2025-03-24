@@ -1,57 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Internal Mark Calculator</title>
-  <link rel="stylesheet" href="index.css">
-  <script src="index.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internal Mark Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js for pie charts -->
 </head>
 <body>
-  <header>
-    <h1>Internal Mark Calculator</h1>
-    <button onclick="openAdminLogin()">Admin</button>
-  </header>
-  <div class="container">
-    <h2>Enter Your Marks</h2>
-    <div class="input-group">
-      <label for="assignment">Assignment Marks1</label>
-      <input type="number" id="assignment1" placeholder="Enter marks (0-100)" />
-    </div>
-    <div class="input-group">
-      <label for="test">Test Marks1</label>
-      <input type="number" id="test1" placeholder="Enter marks (0-100)" />
-    </div>
-    <div class="input-group">
-        <label for="assignment">Assignment Marks2</label>
-        <input type="number" id="assignment2" placeholder="Enter marks (0-100)" />
-      </div>
-      <div class="input-group">
-        <label for="test">Test Marks2</label>
-        <input type="number" id="test2" placeholder="Enter marks (0-100)" />
-      </div>
-    <button class="calculate-btn" onclick="calculateMarks()">Calculate</button>
-    <div class="result" id="result"></div>
+    <div class="student-page">
+        <header>
+            <h1>Internal Mark Calculator</h1>
+            <button id="loginBtn">Staff Login</button>
+        </header>
 
-    <!-- <h2>Search Student</h2>
-    <div class="input-group">
-      <label for="searchRollNo">Enter Roll No</label>
-      <input type="text" id="searchRollNo" placeholder="Enter Roll Number" />
-    </div>
-    <button class="calculate-btn" onclick="searchStudent()">Search</button>
-    <div class="result" id="searchResult"></div>
-  </div> -->
+        <div class="calculator">
+            <h2>Enter Your Marks</h2>
+            <input type="number" id="internal1" placeholder="Internal Mark 1">
+            <input type="number" id="assignment1" placeholder="Assignment Mark 1">
+            <input type="number" id="quiz1" placeholder="Quiz Mark 1">
+            <input type="number" id="internal2" placeholder="Internal Mark 2">
+            <input type="number" id="assignment2" placeholder="Assignment Mark 2">
+            <input type="number" id="quiz2" placeholder="Quiz Mark 2">
+            <button id="calculateBtn">Calculate Total</button>
+            <h3>Total Marks: <span id="totalMarks">0</span></h3>
 
-  <!-- Admin Login Modal -->
-  <div id="adminModal" class="modal">
-    <div class="modal-content">
-      <h3>Admin Login</h3>
-      <input type="text" id="username" placeholder="Username" />
-      <input type="password" id="password" placeholder="Password" />
-      <button onclick="authenticateAdmin()">Login</button>
+            <canvas id="studentPieChart"></canvas> <!-- Pie Chart for Student -->
+        </div>
     </div>
-  </div>
 
-  
+    <div class="login-page hidden">
+        <div class="login-container">
+            <h2>Staff Login</h2>
+            <input type="text" id="staffId" placeholder="Staff ID">
+            <input type="password" id="staffPassword" placeholder="Password">
+            <button id="loginSubmit">Login</button>
+            <p id="loginError" class="hidden">Invalid Credentials</p>
+        </div>
+    </div>
+
+    <div class="staff-page hidden">
+        <header>
+            <h1>Staff Dashboard</h1>
+            <button id="logoutBtn">Logout</button>
+        </header>
+
+        <div class="add-student-form">
+            <h2>Add Student</h2>
+            <input type="text" id="studentName" placeholder="Student Name">
+            <input type="text" id="subjectCode" placeholder="Subject Code">
+            <input type="number" id="staffInternal1" placeholder="Internal Mark 1">
+            <input type="number" id="staffAssignment1" placeholder="Assignment Mark 1">
+            <input type="number" id="staffQuiz1" placeholder="Quiz Mark 1">
+            <input type="number" id="staffInternal2" placeholder="Internal Mark 2">
+            <input type="number" id="staffAssignment2" placeholder="Assignment Mark 2">
+            <input type="number" id="staffQuiz2" placeholder="Quiz Mark 2">
+            <button id="addStudentBtn">Add Student</button>
+        </div>
+
+        <table id="studentTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Subject Code</th>
+                    <th>Internal 1</th>
+                    <th>Assignment 1</th>
+                    <th>Quiz 1</th>
+                    <th>Internal 2</th>
+                    <th>Assignment 2</th>
+                    <th>Quiz 2</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <canvas id="staffPieChart"></canvas> <!-- Pie Chart for Staff -->
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
