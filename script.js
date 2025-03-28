@@ -40,7 +40,6 @@ function createPieChart(canvasId, dataLabels, dataValues, title) {
         },
     });
 
-    // Store the created chart
     if (canvasId === 'studentPieChart') {
         studentPieChart = chart;
     } else {
@@ -57,12 +56,11 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
     const assignment2 = Number(document.getElementById('assignment2').value);
     const quiz2 = Number(document.getElementById('quiz2').value);
 
-    const totalMarks = (internal1 + assignment1 + quiz1 + internal2 + assignment2 + quiz2)/6;
+    const totalMarks = ((internal1 + assignment1 + quiz1) +( internal2 + assignment2 + quiz2)) ;
     document.getElementById('totalMarks').innerText = totalMarks;
 
-    // Update the student pie chart with marks breakdown
-    createPieChart('studentPieChart', ['Internal 1', 'Assignment 1', 'Quiz 1', 'Internal 2', 'Assignment 2', 'Quiz 2'], 
-    [internal1, assignment1, quiz1, internal2, assignment2, quiz2], 'Student Marks Breakdown');
+    createPieChart('studentPieChart', ['Internal 1', 'Assignment 1', 'Quiz 1', 'Internal 2', 'Assignment 2', 'Quiz 2'],
+        [internal1, assignment1, quiz1, internal2, assignment2, quiz2], 'Student Marks Breakdown');
 });
 
 // Staff login functionality
@@ -75,7 +73,6 @@ document.getElementById('loginSubmit').addEventListener('click', () => {
     const staffId = document.getElementById('staffId').value;
     const staffPassword = document.getElementById('staffPassword').value;
 
-    // Dummy login validation (you can replace it with backend authentication)
     if (staffId === 'admin' && staffPassword === 'password') {
         document.querySelector('.login-page').classList.add('hidden');
         document.querySelector('.staff-page').classList.remove('hidden');
@@ -84,42 +81,61 @@ document.getElementById('loginSubmit').addEventListener('click', () => {
     }
 });
 
-// Staff logout functionality
 document.getElementById('logoutBtn').addEventListener('click', () => {
     document.querySelector('.staff-page').classList.add('hidden');
     document.querySelector('.student-page').classList.remove('hidden');
 });
 
-// Add student record functionality for staff
+// Add student record functionality with Edit and Delete features
 document.getElementById('addStudentBtn').addEventListener('click', () => {
-    const studentName = document.getElementById('studentName').value;
-    const subjectCode = document.getElementById('subjectCode').value;
-    const internal1 = Number(document.getElementById('staffInternal1').value);
-    const assignment1 = Number(document.getElementById('staffAssignment1').value);
-    const quiz1 = Number(document.getElementById('staffQuiz1').value);
-    const internal2 = Number(document.getElementById('staffInternal2').value);
-    const assignment2 = Number(document.getElementById('staffAssignment2').value);
-    const quiz2 = Number(document.getElementById('staffQuiz2').value);
+    const table = document.getElementById('studentTable').querySelector('tbody');
+    const newRow = table.insertRow();
 
-    if (studentName && subjectCode) {
-        // Create a new table row
-        const table = document.getElementById('studentTable').querySelector('tbody');
-        const newRow = table.insertRow();
+    const fields = [
+        'rollno','studentName', 'subjectCode', 'subjectName',
+        'staffInternal1', 'staffAssignment1', 'staffQuiz1',
+        'staffInternal2', 'staffAssignment2', 'staffQuiz2'
+    ];
+    const values = fields.map(id => document.getElementById(id).value);
 
-        newRow.insertCell(0).innerText = studentName;
-        newRow.insertCell(1).innerText = subjectCode;
-        newRow.insertCell(2).innerText = internal1;
-        newRow.insertCell(3).innerText = assignment1;
-        newRow.insertCell(4).innerText = quiz1;
-        newRow.insertCell(5).innerText = internal2;
-        newRow.insertCell(6).innerText = assignment2;
-        newRow.insertCell(7).innerText = quiz2;
+    if (values[0] && values[1]) {
+        // Create cells for each field
+        values.slice(0, 9).forEach((value, i) => newRow.insertCell(i).innerText = value);
+
+        // Create actions cell with Edit and Delete buttons
+        const actionsCell = newRow.insertCell();
+        const editButton = document.createElement('button');
+        const deleteButton = document.createElement('button');
+        
+        editButton.innerText = 'Edit';
+        deleteButton.innerText = 'Delete';
+
+        // Attach edit functionality
+        editButton.addEventListener('click', () => {
+            editRecord(newRow, fields);
+        });
+
+        // Attach delete functionality
+        deleteButton.addEventListener('click', () => {
+            newRow.remove();
+        });
+
+        actionsCell.append(editButton, deleteButton);
 
         // Update the staff pie chart
-        const totalMarks = internal1 + assignment1 + quiz1 + internal2 + assignment2 + quiz2;
-        createPieChart('staffPieChart', ['Internal 1', 'Assignment 1', 'Quiz 1', 'Internal 2', 'Assignment 2', 'Quiz 2'], 
-        [internal1, assignment1, quiz1, internal2, assignment2, quiz2], `Marks of ${studentName}`);
+        const totalMarks = values.slice(3, 9).reduce((sum, val) => sum + Number(val), 0);
+        createPieChart('staffPieChart', ['Internal 1', 'Assignment 1', 'Quiz 1', 'Internal 2', 'Assignment 2', 'Quiz 2'],
+            values.slice(3, 9).map(Number), `Marks of ${values[0]}`);
     } else {
         alert('Please fill in all fields.');
     }
 });
+
+// Function to edit an existing record in the table
+function editRecord(row, fields) {
+    row.childNodes.forEach((cell, index) => {
+        if (index < fields.length) document.getElementById(fields[index]).value = cell.innerText;
+    });
+    row.remove();
+}
+

@@ -16,14 +16,17 @@
         </header>
 
         <div class="calculator">
-            <h2>Enter Your Marks</h2>
+            <h2>Enter Your Marks</h2><br><br>
+            <input type="text" id="code" placeholder="Subject Code">
+            <input type="text" id="name" placeholder="Subject Name">
             <input type="number" id="internal1" placeholder="Internal Mark 1">
             <input type="number" id="assignment1" placeholder="Assignment Mark 1">
             <input type="number" id="quiz1" placeholder="Quiz Mark 1">
             <input type="number" id="internal2" placeholder="Internal Mark 2">
             <input type="number" id="assignment2" placeholder="Assignment Mark 2">
             <input type="number" id="quiz2" placeholder="Quiz Mark 2">
-            <button id="calculateBtn">Calculate Total</button>
+            <br><br>
+            <button id="calculateBtn">Calculate Total</button><br><br>
             <h3>Total Marks: <span id="totalMarks">0</span></h3>
 
             <canvas id="studentPieChart"></canvas> <!-- Pie Chart for Student -->
@@ -48,8 +51,12 @@
 
         <div class="add-student-form">
             <h2>Add Student</h2>
+            <input type="text" id="rollno" placeholder="Roll No">
+
             <input type="text" id="studentName" placeholder="Student Name">
             <input type="text" id="subjectCode" placeholder="Subject Code">
+            <input type="text" id="subjectName" placeholder="Subject Name">
+
             <input type="number" id="staffInternal1" placeholder="Internal Mark 1">
             <input type="number" id="staffAssignment1" placeholder="Assignment Mark 1">
             <input type="number" id="staffQuiz1" placeholder="Quiz Mark 1">
@@ -62,8 +69,10 @@
         <table id="studentTable">
             <thead>
                 <tr>
+                    <th>Roll No</th>
                     <th>Name</th>
                     <th>Subject Code</th>
+                    <th>Subject Name</th>
                     <th>Internal 1</th>
                     <th>Assignment 1</th>
                     <th>Quiz 1</th>
